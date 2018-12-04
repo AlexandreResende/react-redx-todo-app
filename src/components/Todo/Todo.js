@@ -16,13 +16,20 @@ class Todo extends PureComponent {
   removeTodoHandler = (index) => {
     this.props.removeTodo(index);
   }
+
+  converDateToString = (dayInMilliseconds) => {
+    const dueDate = new Date(dayInMilliseconds);
+    return `
+      ${dueDate.getDate()}/${(dueDate.getMonth() % 12) + 1}/${dueDate.getFullYear()}
+    `;
+  }
   
   render() {
     const todo = this.props.todoData;
     const doneTodoStyle = { color: 'green', border: '3px solid green'};
     return (
       <TodoCard style={todo.isDone ? doneTodoStyle : null}>
-        <p>{todo.title}</p>
+        <p>{todo.title} - dueDate: {this.converDateToString(todo.dueDate)}</p>
         <p>Tags: {todo.tags.length > 0 ? todo.tags : 'No tags available'} - isDone: {todo.isDone.toString()}</p>
         <button
           style={{marginRight: '5px'}}

@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
 import { connect } from 'react-redux';
+import MomentLocaleUtils, {
+  formatDate,
+  parseDate,
+} from 'react-day-picker/moment';
+
+import 'moment/locale/pt-br';
 
 import { addTodo } from '../../actions/todo/actions';
+
+import 'react-day-picker/lib/style.css';
 
 class TodoInput extends Component {
   constructor(props) {
@@ -28,8 +37,9 @@ class TodoInput extends Component {
     this.setState({ tags: [ ...event.target.value.split(';')] });
   }
 
-  dueDateHandler = (event) => {
-    this.setState({ dueDate: event.target.value.getMilliseconds() });
+  dueDateHandler = (day) => {
+    console.log(day.getTime());
+    this.setState({ dueDate: day.getTime() });
   }
 
   submitHandler = (event) => {
@@ -56,11 +66,12 @@ class TodoInput extends Component {
           onChange={this.tagsHandler}></input>
         <br></br><br></br>
         Due date:
-        <input
-          type='text'
-          placeholder='DD/MM/AAAA'
-          value={this.state.dueDate}
-          onChange={this.dueDateHandler}></input>
+        <DayPickerInput
+          format={'DD-MM-YYYY'}
+          formatDate={formatDate}
+          parseDate={parseDate}
+          placeholder={`${formatDate(new Date(), 'D-M-YYYY', 'pt-br')}`}
+          onDayChange={this.dueDateHandler}/>
         <br></br><br></br>
         <button
           onClick={this.submitHandler}
