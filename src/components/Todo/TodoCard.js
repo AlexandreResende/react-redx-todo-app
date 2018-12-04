@@ -9,4 +9,5 @@ export const TodoCard = styled.div`
   margin: 1em 1em 1em auto;
   display: inline-block;
   padding: 1em;
+  box-shadow: 2px 2px 2px 2px black;
 `;

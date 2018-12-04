@@ -5,6 +5,7 @@ import MomentLocaleUtils, {
   formatDate,
   parseDate,
 } from 'react-day-picker/moment';
+import { Button } from '@material-ui/core';
 
 import 'moment/locale/pt-br';
 
@@ -18,7 +19,7 @@ class TodoInput extends Component {
     this.state = {
       title: '',
       tags: [],
-      dueDate: 0,
+      dueDate: null,
       isDone: false,
     };
   }
@@ -38,16 +39,22 @@ class TodoInput extends Component {
   }
 
   dueDateHandler = (day) => {
-    console.log(day.getTime());
     this.setState({ dueDate: day.getTime() });
   }
 
   submitHandler = (event) => {
     event.preventDefault();
     this.props.addTodo({ ...this.state, _id: Math.random() });
+    this.setState({
+      title: '',
+      tags: [],
+      dueDate: null,
+      isDone: false,
+    });
   }
 
   render() {
+    const submitStyles = { color: 'white', backgroundColor: 'black' };
     return (
       <form>
         <p>Add your Todos here:</p>
@@ -73,9 +80,10 @@ class TodoInput extends Component {
           placeholder={`${formatDate(new Date(), 'D-M-YYYY', 'pt-br')}`}
           onDayChange={this.dueDateHandler}/>
         <br></br><br></br>
-        <button
+        <Button
+          style={submitStyles}
           onClick={this.submitHandler}
-        >Submit</button>
+        >Submit</Button>
       </form>
     );
   }

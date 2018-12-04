@@ -1,6 +1,7 @@
 
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { Button } from '@material-ui/core'
 
 import { TodoCard } from './TodoCard';
 import {
@@ -27,15 +28,18 @@ class Todo extends PureComponent {
   render() {
     const todo = this.props.todoData;
     const doneTodoStyle = { color: 'green', border: '3px solid green'};
+    const markAsDoneStyles = { color: 'white', backgroundColor: 'green', border: '1px solid green', marginRight: '5px' };
+    const deleteStyles = { color: 'white', backgroundColor: 'red', border: '1px solid red' };
     return (
       <TodoCard style={todo.isDone ? doneTodoStyle : null}>
         <p>{todo.title} - dueDate: {this.converDateToString(todo.dueDate)}</p>
         <p>Tags: {todo.tags.length > 0 ? todo.tags : 'No tags available'} - isDone: {todo.isDone.toString()}</p>
-        <button
-          style={{marginRight: '5px'}}
-          onClick={() => this.removeTodoHandler(todo._id)}>Delete Todo</button>
-        <button
-          onClick={() => this.markTodoAsDoneHandler(todo._id)}>Mark as done!</button>
+        <Button
+          style={markAsDoneStyles}
+          onClick={() => this.markTodoAsDoneHandler(todo._id)}>Mark as done!</Button>
+        <Button
+          style={deleteStyles}
+          onClick={() => this.removeTodoHandler(todo._id)}>Delete Todo</Button>
       </TodoCard>
     );
   }
