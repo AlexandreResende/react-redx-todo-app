@@ -6,7 +6,8 @@ import Todo from './Todo';
 
 class TodoList extends Component {
   createTodoList = () => {
-    return this.props.todos.map(todo => {
+    const sortedTodoList = this.sortTodoList(this.props.todos);
+    return sortedTodoList.map(todo => {
       return (
         <Todo
           key={todo._id}
@@ -14,6 +15,11 @@ class TodoList extends Component {
         </Todo>
       );
     });
+  }
+
+  sortTodoList = (todoList) => {
+    const sortBy = this.props.orderBy === 'ORDER_BY_TODO' ? 'title' : 'dueDate';
+    return todoList.sort((td1, td2) => td1[sortBy] - td2[sortBy]);
   }
 
   render() {
@@ -29,6 +35,7 @@ class TodoList extends Component {
 
 const mapStateToProps = state => ({
   todos: state.todos,
+  orderBy: state.orderBy,
 });
 
 export default connect(mapStateToProps, null)(TodoList);
