@@ -48,14 +48,7 @@ class TodoInput extends Component {
   submitHandler = (event) => {
     event.preventDefault();
     this.props.addTodo({ ...this.state.todo, _id: Math.random() });
-    this.setState({
-        todo: {
-        title: '',
-        tags: [],
-        dueDate: null,
-        isDone: false,
-      }
-    });
+    //problem to reset the state of this.state.todo
   }
 
   orderByDueDate = () => {
