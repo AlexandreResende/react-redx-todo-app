@@ -28,12 +28,6 @@ class TodoInput extends Component {
   }
 
   titleHandler = (event) => {
-    /* this.setState(prevState => {
-      return {
-        ...prevState,
-        title: event.target.value,
-      }
-    }); */
     this.setState({ todo: { ...this.state.todo, title: event.target.value } });
   }
 
@@ -48,7 +42,6 @@ class TodoInput extends Component {
   submitHandler = (event) => {
     event.preventDefault();
     this.props.addTodo({ ...this.state.todo, _id: Math.random() });
-    //problem to reset the state of this.state.todo
   }
 
   orderByDueDate = () => {
