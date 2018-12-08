@@ -23,6 +23,7 @@ class TodoList extends Component {
   }
 
   render() {
+    console.log(this.props.todos);
     const todoList = this.createTodoList();
     return (
       <div>
